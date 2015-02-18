@@ -15,7 +15,25 @@
 #define CMP_MODE	0
 #define CPT_MODE	BV(8)
 #define TOG			BV(7)
+//reset when you hit tccrx, reset when you hit tccr0
+#define RST_SET		BV(7) | BV(6) | BV(5)
+#define SET_RST		BV(6) | BV(5)
 #define	OUT_HIGH	BV(2)
+
+#define uint8		unsigned char
+#define int8		signed char
+#define uint16		unsigned short
+#define int16		signed short
+
+#define LED1		1
+#define LED2		2
+
+#define LED1_dir	P1DIR
+#define LED2_dir	P1DIR
+#define LED1_bit	BV(1)
+#define LED1_sel		P1SEL
+
+void halFade(uint8 LED, uint8 duty);
 
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
@@ -23,12 +41,12 @@ int main(void) {
 
 
 	//set timer 0
-	//TACCR0 = 0x8000;
-	TACCR1 = 0x1000;
+	TACCR0 = 100;
+	TACCR1 = 10;
 	//TACCR2 = 0x80;
-	TACTL = SMCLK | DIV_8 | CONT_MODE;
+	TACTL = SMCLK | DIV_8 | UP_MODE;
 	//TACCTL0 = CMP_MODE | TOG | OUT_HIGH;
-	TACCTL1 = CMP_MODE | TOG | OUT_HIGH;
+	TACCTL1 = CMP_MODE | RST_SET | OUT_HIGH;
 	P1DIR |= BV(6);
 	P1SEL |= BV(6);
 
@@ -40,5 +58,22 @@ int main(void) {
 		//P1OUT ^= BV(6);
 		for(i=0;i<10000;i++);
 	}
-	return 0;
+}
+
+void halFadeInt(void){
+	//io settings
+	LED1_dir |= LED1_bit;
+	LED1_sel |= LED1_bit;
+
+	//set timer period for 100 and pwdm settings
+	TACCR0 = 100;
+	TACCR1 = 101;
+	TACCR2 = 101;
+	TACTL = SMCLK | DIV_8 | UP_MODE;
+	TACCTL1 = CMP_MODE | SET_RST | OUT_HIGH;
+
+}
+void halFade(uint8 LED, uint8 duty){
+
+
 }
