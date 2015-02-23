@@ -8,26 +8,32 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../halLED.c \
+../halSwitch.c \
 ../main.c 
 
 OBJS += \
 ./halLED.obj \
+./halSwitch.obj \
 ./main.obj 
 
 C_DEPS += \
 ./halLED.pp \
+./halSwitch.pp \
 ./main.pp 
 
 C_DEPS__QUOTED += \
 "halLED.pp" \
+"halSwitch.pp" \
 "main.pp" 
 
 OBJS__QUOTED += \
 "halLED.obj" \
+"halSwitch.obj" \
 "main.obj" 
 
 C_SRCS__QUOTED += \
 "../halLED.c" \
+"../halSwitch.c" \
 "../main.c" 
 
 

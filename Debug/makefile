@@ -7,6 +7,7 @@ CG_TOOL_ROOT := /home/peter/ti/ccsv6/tools/compiler/msp430_4.3.3
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
 "./halLED.obj" \
+"./halSwitch.obj" \
 "./main.obj" \
 "../lnk_msp430g2553.cmd" \
 -l"libc.a" \
@@ -139,8 +140,8 @@ shakeLamp.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "halLED.pp" "main.pp" 
-	-$(RM) "halLED.obj" "main.obj" 
+	-$(RM) "halLED.pp" "halSwitch.pp" "main.pp" 
+	-$(RM) "halLED.obj" "halSwitch.obj" "main.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

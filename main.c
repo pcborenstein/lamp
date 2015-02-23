@@ -1,25 +1,23 @@
-#include <msp430.h> 
-#include "util.h"
-#include "halLED.h"
 /*
  * main.c
  */
 
+#include <msp430.h>
+#include "util.h"
+#include "halLED.h"
+#include "halSwitch.h"
 
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
+    switchInit();
+
 	halFadeInit();
-	halFade(LED1, 50);
+	halFade(LED1, 0);
 
-	int i, j;
-	j = 0;
-	while(1){
-		j += 1;
-		if(j>100)
-			j = 1;
+	//global interrupt
+	_BIS_SR(GIE);
 
-		halFade(LED1, j);
-		for(i=0;i<5000;i++);
-	}
+	while(1);
 }
+
