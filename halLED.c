@@ -51,7 +51,7 @@ uint8 halFade(uint8 LED, uint8 duty){
 
 	if(duty <= 100){
 
-		uint8 set = 100 - duty;
+		uint8 set = 101 - duty;
 
 		switch(LED){
 		case LED1:
